@@ -6,23 +6,36 @@ document.getElementById("formLogin").addEventListener('submit', function(e){
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    login(email, password);
+
+    
+});
+
+function login(email, password){
     let message = '';
     let alertType = '';
-
-    if(email === "" || password === ""){
-        alertType = 'warning';
-        message = 'Por favor completa todos los campos';
-
-    } else if(email === 'prueba@gmail.com' && password === '123456'){
+    fetch('https://reqres.in/api/login', {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            email, password
+        })
+    })
+    .then((data) =>{
+        console.log('responde bien'+ data);
         alertType = 'success';
         message = 'Bienvenido';
-    } else{
+    })
+    .catch((error) => {
+        console.log(error);
         alertType = 'danger';
         message = 'Datos erroneos';
-    }
+    })
     const mensajeFinal = document.getElementById('alert');
     mensajeFinal.classList.add(`alert`, `alert-${alertType}`, `alert-dismissible`, `fade`, `show`);
 
     mensajeFinal.textContent = message;
     document.getElementById('alert').appendChild(mensajeFinal);
-});
+}
