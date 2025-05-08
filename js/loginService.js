@@ -31,9 +31,11 @@ function login(email, password){
                     alertType = 'success';
                     message = 'Bienvenido'; 
                     alertBuilder(alertType, message);
-                    localStorage.setItem('token', '234455wwe')
+                    
+                        localStorage.setItem('token', data.token)
+                    
                     setTimeout (() =>{
-                        location.href = 'dashboard.html';
+                        location.href = '../admin/dashboard.html';
                     }, 2000)
                 });
         } else {
